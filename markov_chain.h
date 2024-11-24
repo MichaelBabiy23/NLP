@@ -63,7 +63,21 @@ int add_node_to_frequency_list(MarkovNode *first_node
  * Free markov_chain and all of it's content from memory
  * @param markov_chain markov_chain to free
  */
-void free_database(MarkovChain ** ptr_chain);
+void free_database(MarkovChain **ptr_chain);
+
+/**
+ * Helper function for free_database(MarkovChain **ptr_chain)
+ * Free markov_node and all of it's content from memory.
+ * @param head
+ */
+void free_MarkovNode(MarkovNode *head);
+
+/**
+ * Helper function for free_node(MarkovNode **prt_node)
+ * Free free_frequency_list and all of it's content from memory.
+ * @param head
+ */
+void free_MarkovNodeFrequency(MarkovNodeFrequency *head);
 
 /**
  * Get one random MarkovNode from the given markov_chain's database.

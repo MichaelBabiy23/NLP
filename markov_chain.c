@@ -92,12 +92,110 @@ int add_node_to_frequency_list(MarkovNode *first_node, MarkovNode *second_node)
             // update existing node
             temp->frequency++;
         }
-        return 0;
+    }
+    return 0;
+}
+
+
+
+void free_database(MarkovChain ** ptr_chain)
+{
+    // pointer to head of the node chain
+    Node *head = (*ptr_chain)->database->first;
+    // check if head is not null
+    while (head != NULL)
+    {
+        // store the next pointer in order to free the previous one
+        Node *next = head->next;
+        // free the markov node inside
+        free_MarkovNode(head->data);
+        // free the head itself
+        free(head);
+        // move to the next node
+        head = next;
+    }
+    // free the linked list
+    free((*ptr_chain)->database);
+    // free the markov chain
+    free(*ptr_chain);
+}
+
+void free_MarkovNode(MarkovNode *head)
+{
+    if (head != NULL)
+    {
+        // free all head content from memory
+        free(head->data);
+        free_MarkovNodeFrequency(head->frequency_list);
+        free(head);
+    }
+}
+
+void free_MarkovNodeFrequency(MarkovNodeFrequency *head)
+{
+    // loop through all the nodes and free each of them
+    while (head != NULL)
+    {
+        MarkovNodeFrequency *next = head->next;
+        free(head);
+        head = next;
+    }
+}
+
+MarkovNode* get_first_random_node(MarkovChain *markov_chain)
+{
+    // generate random number [0, size of chain)
+    int randomNumber = get_random_number(markov_chain->database->size);
+    Node *head = markov_chain->database->first;
+    // loop through all the nodes and subtract one from the random number
+    while (randomNumber > 0)
+    {
+        head = head->next;
+        randomNumber--;
+    }
+    return head->data;
+}
+
+MarkovNode* get_next_random_node(MarkovNode *cur_markov_node)
+{
+    // accumulate of all the frequencies
+    int sumOfFrequencies = 0;
+    MarkovNodeFrequency *cur_frequency_list = cur_markov_node->frequency_list;
+    // loop through all the nodes and sum their frequency
+    while (cur_frequency_list != NULL)
+    {
+        sumOfFrequencies += cur_frequency_list->frequency;
+        cur_frequency_list = cur_frequency_list->next;
+    }
+    // generate a random number
+    int randomFrequency = get_random_number(sumOfFrequencies);
+    cur_frequency_list = cur_markov_node->frequency_list;
+    // loop through all the nodes and subtract their frequency
+    while (randomFrequency > 0)
+    {
+        cur_frequency_list = cur_frequency_list->next;
+        randomFrequency -= cur_frequency_list->frequency;
     }
 
-
-
-
-
-
+    return cur_frequency_list->markov_node;
 }
+
+void generate_tweet(MarkovNode *first_node, int max_length)
+{
+    for (int i = 0; i < max_length; i++)
+    {
+        // if the word ends with dot, print it and stop the tweet generation
+        if (first_node->data[strlen(first_node->data) - 1] == '.')
+        {
+            printf(first_node->data);
+            return;
+        }
+        // print the word with space after it
+        printf(first_node->data);
+        printf(" ");
+        // go to the next random node
+        first_node = get_next_random_node(first_node);
+    }
+}
+
+
