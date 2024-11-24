@@ -83,9 +83,11 @@ int add_node_to_frequency_list(MarkovNode *first_node, MarkovNode *second_node)
                 return 1;
 
             // add the new data to the node
-            first_node->last_node_frequency_list->next->next = NULL;
             first_node->last_node_frequency_list->next->markov_node = second_node;
             first_node->last_node_frequency_list->next->frequency = 1;
+            first_node->last_node_frequency_list = first_node->last_node_frequency_list->next;
+            first_node->last_node_frequency_list->next = NULL;
+
         }
         else
         {
