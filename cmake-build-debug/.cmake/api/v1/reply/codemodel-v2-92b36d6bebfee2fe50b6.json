@@ -49,12 +49,12 @@
 	"kind" : "codemodel",
 	"paths" : 
 	{
-		"build" : "/home/student/CLionProjects/NLP/cmake-build-debug",
-		"source" : "/home/student/CLionProjects/NLP"
+		"build" : "/home/parallels/Desktop/NLP/cmake-build-debug",
+		"source" : "/home/parallels/Desktop/NLP"
 	},
 	"version" : 
 	{
 		"major" : 2,
-		"minor" : 6
+		"minor" : 7
 	}
 }
