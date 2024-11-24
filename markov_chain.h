@@ -17,13 +17,13 @@ typedef struct MarkovChain{
 typedef struct MarkovNode{
     char *data;
     struct MarkovNodeFrequency* frequency_list;
-    // any other field you need
+    struct MarkovNodeFrequency* last_node_frequency_list;
 } MarkovNode;
 
 typedef struct MarkovNodeFrequency{
     struct MarkovNode* markov_node;
     int frequency;
-    // any other fields you need
+    struct MarkovNodeFrequency* next;
 } MarkovNodeFrequency;
 
 
