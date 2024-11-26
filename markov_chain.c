@@ -185,7 +185,7 @@ MarkovNode* get_next_random_node(MarkovNode *cur_markov_node)
     while (cur_frequency_list != NULL)
     {
         randomFrequency -= cur_frequency_list->frequency;
-        if (randomFrequency <= 0)
+        if (randomFrequency < 0)
             break;
         cur_frequency_list = cur_frequency_list->next;
 

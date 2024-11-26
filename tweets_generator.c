@@ -64,14 +64,13 @@ int fill_database(FILE *fp, int words_to_read, MarkovChain *markov_chain) {
             if (second_node == NULL) {
                 return show_ALLOCATION_ERROR_MASSAGE_free_and_return(markov_chain);
             }
+            add_node_to_frequency_list(first_node->data, second_node->data);
 
             if (is_word_ends_with_dot(second_node->data->data) == false) {
-                add_node_to_frequency_list(first_node->data, second_node->data);
                 // continue the sentence
                 // replace the first node with the second one to move forward and keep the last node
                 first_node = second_node;
             } else if (still_have_to_read(words_to_read)) {
-                add_node_to_frequency_list(first_node->data, second_node->data);
                 // start a new sentence, dot found
                 first_node = add_to_database(markov_chain, token);
                 if (first_node == NULL) {
