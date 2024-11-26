@@ -196,7 +196,7 @@ MarkovNode* get_next_random_node(MarkovNode *cur_markov_node)
 
 void generate_tweet(MarkovNode *first_node, int max_length)
 {
-    for (int i = 0; i < max_length; i++)
+    for (int i = 0; i < max_length - 1; i++)
     {
         // if the word ends with dot, print it and stop the tweet generation
         if (first_node->data[strlen(first_node->data) - 1] == '.')
@@ -209,7 +209,8 @@ void generate_tweet(MarkovNode *first_node, int max_length)
         // go to the next random node
         first_node = get_next_random_node(first_node);
     }
-    fprintf(stdout, "\n");
+    fprintf(stdout, "%s\n",first_node->data);
+
 }
 
 
