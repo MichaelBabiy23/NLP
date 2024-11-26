@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <string.h>
 
+
 /**
  * Get random number between 0 and max_number [0, max_number).
  * @param max_number
@@ -9,18 +10,20 @@
  */
 int get_random_number(int max_number)
 {
+    if (max_number <= 0)
+        return 0;
     return rand() % max_number;
 }
 
 Node* get_node_from_database(MarkovChain *markov_chain, char *data_ptr)
 {
     // check if markov_chain is empty
-    if (markov_chain->database->first == NULL)
+    if (markov_chain == NULL || markov_chain->database->first == NULL)
         return NULL;
 
     // go through the chain and check for data_ptr value
     Node* checkNode = markov_chain->database->first;
-    while (checkNode != NULL && !strcmp(checkNode->data->data, data_ptr))
+    while (checkNode != NULL && strcmp(checkNode->data->data, data_ptr) != 0)
         checkNode = checkNode->next;
 
     return checkNode;
@@ -37,7 +40,7 @@ Node* add_to_database(MarkovChain *markov_chain, char *data_ptr)
     MarkovNode *newMarkovNode = (MarkovNode*) malloc (sizeof (MarkovNode));
     if (newMarkovNode == NULL)
         return NULL;
-    newMarkovNode->data = data_ptr; // TODO: 'strdup' is needed?
+    newMarkovNode->data = strdup(data_ptr); // TODO: 'strdup' is needed?
 
     // check if malloc is failed to allocate new space for the new node
     if (add(markov_chain->database, newMarkovNode) ==  1)
@@ -60,7 +63,10 @@ int add_node_to_frequency_list(MarkovNode *first_node, MarkovNode *second_node)
         first_node->frequency_list = (MarkovNodeFrequency*) malloc (sizeof (MarkovNodeFrequency));
         // if failed to allocate memory
         if (first_node->frequency_list == NULL)
-            return 1;
+        {
+            fprintf (stderr, ALLOCATION_ERROR_MASSAGE);
+            return EXIT_FAILURE;
+        }
 
         // add the new data to the node
         first_node->frequency_list->markov_node = second_node;
@@ -80,7 +86,10 @@ int add_node_to_frequency_list(MarkovNode *first_node, MarkovNode *second_node)
         {
             first_node->last_node_frequency_list->next = (MarkovNodeFrequency*) malloc (sizeof (MarkovNodeFrequency));
             if (first_node->last_node_frequency_list->next == NULL)
-                return 1;
+            {
+                fprintf (stderr, ALLOCATION_ERROR_MASSAGE);
+                return EXIT_FAILURE;
+            }
 
             // add the new data to the node
             first_node->last_node_frequency_list->next->markov_node = second_node;
@@ -173,10 +182,13 @@ MarkovNode* get_next_random_node(MarkovNode *cur_markov_node)
     int randomFrequency = get_random_number(sumOfFrequencies);
     cur_frequency_list = cur_markov_node->frequency_list;
     // loop through all the nodes and subtract their frequency
-    while (randomFrequency > 0)
+    while (cur_frequency_list != NULL)
     {
-        cur_frequency_list = cur_frequency_list->next;
         randomFrequency -= cur_frequency_list->frequency;
+        if (randomFrequency <= 0)
+            break;
+        cur_frequency_list = cur_frequency_list->next;
+
     }
 
     return cur_frequency_list->markov_node;
@@ -189,15 +201,15 @@ void generate_tweet(MarkovNode *first_node, int max_length)
         // if the word ends with dot, print it and stop the tweet generation
         if (first_node->data[strlen(first_node->data) - 1] == '.')
         {
-            printf(first_node->data);
+            fprintf(stdout, "%s\n", first_node->data);
             return;
         }
         // print the word with space after it
-        printf(first_node->data);
-        printf(" ");
+        fprintf(stdout, "%s ",first_node->data);
         // go to the next random node
         first_node = get_next_random_node(first_node);
     }
+    fprintf(stdout, "\n");
 }
 
 
