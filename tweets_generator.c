@@ -145,6 +145,8 @@ int main(int argc, char **argv)
         generate_tweet(markovNode, MAX_WORDS_PER_SENTENCE);
     }
 
+    free_database(&markov_chain);
+    fclose(file);
     return EXIT_SUCCESS;
 }
 

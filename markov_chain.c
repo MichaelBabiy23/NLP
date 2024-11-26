@@ -40,6 +40,8 @@ Node* add_to_database(MarkovChain *markov_chain, char *data_ptr)
     MarkovNode *newMarkovNode = (MarkovNode*) malloc (sizeof (MarkovNode));
     if (newMarkovNode == NULL)
         return NULL;
+    newMarkovNode->frequency_list = NULL;
+    newMarkovNode->last_node_frequency_list = NULL;
     newMarkovNode->data = strdup(data_ptr); // TODO: 'strdup' is needed?
 
     // check if malloc is failed to allocate new space for the new node
@@ -136,6 +138,7 @@ void free_MarkovNode(MarkovNode *head)
     if (head != NULL)
     {
         // free all head content from memory
+        // the word
         free(head->data);
         free_MarkovNodeFrequency(head->frequency_list);
         free(head);
@@ -210,7 +213,6 @@ void generate_tweet(MarkovNode *first_node, int max_length)
         first_node = get_next_random_node(first_node);
     }
     fprintf(stdout, "%s\n",first_node->data);
-
 }
 
 
