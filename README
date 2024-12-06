@@ -1,33 +1,35 @@
 # Tweet Generator Program
 
-**Authored by**: Michael Babiy  
+Authored by: Michael Babiy  
 323073734
 
 ## Description
 
-This program generates random tweets using a **Markov Chain** algorithm. It analyzes word sequences from a provided database, identifies patterns, and predicts word combinations to create tweets that flow naturally. By leveraging statistical analysis, the program simulates real tweet generation.
+This program generates random tweets using a Markov Chain algorithm.
+It analyzes word sequences from a provided database, identifies patterns, and predicts word combinations to create tweets that flow naturally.
+By leveraging statistical analysis, the program simulates real tweet generation.
 
 ## Data Structures
 
-- **MarkovChain**: A linked list where each node contains a **MarkovNode**.
-- **MarkovNode**: A node that stores a word and its associated **MarkovNodeFrequency**.
-- **MarkovNodeFrequency**: Stores words that follow the **MarkovNode** word along with their frequencies.
+- MarkovChain: A linked list where each node contains a MarkovNode.
+- MarkovNode: A node that stores a word and its associated MarkovNodeFrequency.
+- MarkovNodeFrequency: Stores words that follow the MarkovNode word along with their frequencies.
 
 ## Main Functions
 
-- **generate_tweet**: Generates random tweets using the Markov chain.
-- **get_node_from_database, add_to_database, add_node_to_frequency_list, add, get_first_random_node, get_next_random_node**: Functions to interact with and manage the data structures.
-- **fill_database**: Extracts data from the input file and populates the data structures.
-- **free_database**: Frees memory allocated for the database.
+- generate_tweet: Generates random tweets using the Markov chain.
+- get_node_from_database, add_to_database, add_node_to_frequency_list, add, get_first_random_node, get_next_random_node: Functions to interact with and manage the data structures.
+- fill_database: Extracts data from the input file and populates the data structures.
+- free_database: Frees memory allocated for the database.
 
 ## Program Files
 
 - `tweets_generator.c`: Contains the `main()` function and `fill_database()` function.
-- `markov_chain.c`: Implements functions that use **MarkovNode**.
+- `markov_chain.c`: Implements functions that use MarkovNode.
 - `markov_chain.h`: Header file for `markov_chain.c`.
 - `linked_list.c`: Implements functions for the linked list.
 - `linked_list.h`: Header file for `linked_list.c`.
-- **Makefile**: Script used to compile the program.
+- Makefile: Script used to compile the program.
 
 ## How to Compile and Run
 
@@ -51,10 +53,10 @@ After compilation, run the program with:
 
 The program accepts the following inputs:
 
-- **Seed**: A starting word or phrase for the tweet generation.
-- **Number of Tweets**: How many tweets to generate.
-- **File Path**: Path to the input file (used for reading data).
-- **Number of Words to Read** (Optional): The number of words to read from the input file for the Markov chain.
+- Seed: A starting word or phrase for the tweet generation.
+- Number of Tweets: How many tweets to generate.
+- File Path: Path to the input file (used for reading data).
+- Number of Words to Read (Optional): The number of words to read from the input file for the Markov chain.
 
 ## Output
 
@@ -69,5 +71,5 @@ Example output:
 
 ```
 Tweet 1:  
-"vibe this morning."
+"Just finished a new book and now I’m in that post-book sadness. Anyone else?"
 ```
