@@ -1,51 +1,73 @@
-**Tweet Generator Program**
-Authored by Michael Babiy  
+# Tweet Generator Program
+
+**Authored by**: Michael Babiy  
 323073734
 
-**Description**  
-This program generates tweets using a Markov chain, which constructs random tweets based on a provided database. It analyzes word sequences statistically to identify patterns and tendencies, then predicts and generates text that flows naturally by selecting words that frequently follow one another.
+## Description
 
-**Program Data Structures:**  
+This program generates random tweets using a **Markov Chain** algorithm. It analyzes word sequences from a provided database, identifies patterns, and predicts word combinations to create tweets that flow naturally. By leveraging statistical analysis, the program simulates real tweet generation.
+
+## Data Structures
+
 - **MarkovChain**: A linked list where each node contains a **MarkovNode**.
-- **MarkovNode**: A node that holds a word and a **MarkovNodeFrequency**.
-- **MarkovNodeFrequency**: Stores words and their respective frequencies following the **MarkovNode** word.
+- **MarkovNode**: A node that stores a word and its associated **MarkovNodeFrequency**.
+- **MarkovNodeFrequency**: Stores words that follow the **MarkovNode** word along with their frequencies.
 
-**Main Functions:**  
-1. **generate_tweet**: Generates random tweets using the Markov chain.
-2. **get_node_from_database, add_to_database, add_node_to_frequency_list, add, get_first_random_node, get_next_random_node**: Functions that interact with the data structures.
-3. **fill_database**: Extracts data from the database and populates the data structures.
-4. **free_database**: Frees all memory allocated for the database.
+## Main Functions
 
-**Program Files:**  
-- **tweets_generator.c**: Contains the main function and the **fill_database** function.  
-- **markov_chain.c**: Contains functions that use Markov nodes.  
-- **markov_chain.h**: Header file for **markov_chain.c**.  
-- **linked_list.c**: Implements functions for the linked list.  
-- **linked_list.h**: Header file for **linked_list.c**.
+- **generate_tweet**: Generates random tweets using the Markov chain.
+- **get_node_from_database, add_to_database, add_node_to_frequency_list, add, get_first_random_node, get_next_random_node**: Functions to interact with and manage the data structures.
+- **fill_database**: Extracts data from the input file and populates the data structures.
+- **free_database**: Frees memory allocated for the database.
 
-**Makefile**: Used to compile the program.
+## Program Files
 
-**How to Compile:**  
-To compile, run:
+- `tweets_generator.c`: Contains the `main()` function and `fill_database()` function.
+- `markov_chain.c`: Implements functions that use **MarkovNode**.
+- `markov_chain.h`: Header file for `markov_chain.c`.
+- `linked_list.c`: Implements functions for the linked list.
+- `linked_list.h`: Header file for `linked_list.c`.
+- **Makefile**: Script used to compile the program.
+
+## How to Compile and Run
+
+### 1. Compile
+
+To compile the program, run the following command:
+
 ```bash
-gcc -Wall -Wextra -Wvla -std=c99 tweets_generator.c markov_chain.c linked_list.c -o output
+gcc -Wall -Wextra -Wvla -std=c99 tweets_generator.c markov_chain.c linked_list.c -o tweets_generator
 ```
 
-**To Run:**  
-Run the compiled program:  
+### 2. Run
+
+After compilation, run the program with:
+
 ```bash
 ./tweets_generator
 ```
 
-**Input Parameters:**  
-- A seed  
-- The number of tweets to generate  
-- File path  
-- Optional: The number of words to read from the file.
+## Input Parameters
 
-**Output:**  
-For each tweet generated:  
+The program accepts the following inputs:
+
+- **Seed**: A starting word or phrase for the tweet generation.
+- **Number of Tweets**: How many tweets to generate.
+- **File Path**: Path to the input file (used for reading data).
+- **Number of Words to Read** (Optional): The number of words to read from the input file for the Markov chain.
+
+## Output
+
+For each tweet generated, the program will output something like:
+
 ```
-Tweet i:  
-(i runs from 1 to the specified number of tweets to create)
+Tweet i: 
+(i runs from 1 to the specified number of tweets)
+```
+
+Example output:
+
+```
+Tweet 1:  
+"vibe this morning."
 ```
