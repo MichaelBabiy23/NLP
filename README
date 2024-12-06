@@ -1,0 +1,51 @@
+**Tweet Generator Program**
+Authored by Michael Babiy  
+323073734
+
+**Description**  
+This program generates tweets using a Markov chain, which constructs random tweets based on a provided database. It analyzes word sequences statistically to identify patterns and tendencies, then predicts and generates text that flows naturally by selecting words that frequently follow one another.
+
+**Program Data Structures:**  
+- **MarkovChain**: A linked list where each node contains a **MarkovNode**.
+- **MarkovNode**: A node that holds a word and a **MarkovNodeFrequency**.
+- **MarkovNodeFrequency**: Stores words and their respective frequencies following the **MarkovNode** word.
+
+**Main Functions:**  
+1. **generate_tweet**: Generates random tweets using the Markov chain.
+2. **get_node_from_database, add_to_database, add_node_to_frequency_list, add, get_first_random_node, get_next_random_node**: Functions that interact with the data structures.
+3. **fill_database**: Extracts data from the database and populates the data structures.
+4. **free_database**: Frees all memory allocated for the database.
+
+**Program Files:**  
+- **tweets_generator.c**: Contains the main function and the **fill_database** function.  
+- **markov_chain.c**: Contains functions that use Markov nodes.  
+- **markov_chain.h**: Header file for **markov_chain.c**.  
+- **linked_list.c**: Implements functions for the linked list.  
+- **linked_list.h**: Header file for **linked_list.c**.
+
+**Makefile**: Used to compile the program.
+
+**How to Compile:**  
+To compile, run:
+```bash
+gcc -Wall -Wextra -Wvla -std=c99 tweets_generator.c markov_chain.c linked_list.c -o output
+```
+
+**To Run:**  
+Run the compiled program:  
+```bash
+./tweets_generator
+```
+
+**Input Parameters:**  
+- A seed  
+- The number of tweets to generate  
+- File path  
+- Optional: The number of words to read from the file.
+
+**Output:**  
+For each tweet generated:  
+```
+Tweet i:  
+(i runs from 1 to the specified number of tweets to create)
+```

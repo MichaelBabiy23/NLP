@@ -193,7 +193,7 @@ MarkovNode* get_next_random_node(MarkovNode *cur_markov_node)
         cur_frequency_list = cur_frequency_list->next;
 
     }
-
+    // the line must end with a dot
     return cur_frequency_list->markov_node;
 }
 
