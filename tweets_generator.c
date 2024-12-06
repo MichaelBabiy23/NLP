@@ -107,14 +107,15 @@ int main(int argc, char **argv)
     MarkovChain *markov_chain = (MarkovChain *)malloc(sizeof(MarkovChain));
     if (markov_chain == NULL)
     {
-        // TODO : free all
+        free(file);
         fprintf(stdout, ALLOCATION_ERROR_MASSAGE);
         return EXIT_FAILURE;
     }
     markov_chain->database = (LinkedList *)malloc(sizeof(LinkedList));
     if (markov_chain->database == NULL)
     {
-        // TODO : free all
+        free(file);
+        free(markov_chain);
         fprintf(stdout, ALLOCATION_ERROR_MASSAGE);
         return EXIT_FAILURE;
     }
@@ -132,6 +133,8 @@ int main(int argc, char **argv)
 
     if (fill_success != 0)
     {
+        free(file);
+        free_database(&markov_chain);
         fprintf(stdout, "Fill database failed");
         return EXIT_FAILURE;
     }

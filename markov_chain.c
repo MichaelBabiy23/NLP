@@ -1,6 +1,7 @@
 #include "markov_chain.h"
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 
 
 /**
@@ -29,6 +30,23 @@ Node* get_node_from_database(MarkovChain *markov_chain, char *data_ptr)
     return checkNode;
 }
 
+char* my_strdup(const char* str) {
+    if (str == NULL) {
+        return NULL;
+    }
+
+    size_t len = strlen(str) + 1;
+    char* copy = (char*)malloc(len);
+    if (copy == NULL) {
+        fprintf (stderr, ALLOCATION_ERROR_MASSAGE); // Allocation failed
+        return NULL;
+    }
+
+    memcpy(copy, str, len);
+    return copy;
+}
+
+
 Node* add_to_database(MarkovChain *markov_chain, char *data_ptr)
 {
     // check if the node already exists
@@ -42,10 +60,10 @@ Node* add_to_database(MarkovChain *markov_chain, char *data_ptr)
         return NULL;
     newMarkovNode->frequency_list = NULL;
     newMarkovNode->last_node_frequency_list = NULL;
-    newMarkovNode->data = strdup(data_ptr); // TODO: 'strdup' is needed?
+    newMarkovNode->data = my_strdup(data_ptr);
 
     // check if malloc is failed to allocate new space for the new node
-    if (add(markov_chain->database, newMarkovNode) ==  1)
+    if (add(markov_chain->database, newMarkovNode) ==  1 || newMarkovNode->data == NULL)
     {
         free (newMarkovNode);
         return NULL;

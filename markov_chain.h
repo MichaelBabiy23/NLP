@@ -101,5 +101,9 @@ MarkovNode* get_next_random_node(MarkovNode *cur_markov_node);
  */
 void generate_tweet(MarkovNode *first_node, int max_length);
 
+/**
+* Custom strdup implementation
+*/
+char* my_strdup(const char* str);
 
 #endif /* _MARKOV_CHAIN_H_ */
